@@ -1,0 +1,19 @@
+{
+  "name": "jsbits",
+  "version": "1.0.0",
+  "description": "Small bits of javascript code",
+  "main": "cards.js",
+  "scripts": {
+	  "test": "echo \"Error: no test specified\" && exit 1",
+	  "build": "babel *.js -d build/",
+	  "prepublish": "npm run build",
+	  "flow": "flow"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "babel-cli": "^6.24.1",
+    "babel-preset-flow": "^6.23.0",
+    "flow-bin": "^0.44.0"
+  }
+}
