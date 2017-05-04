@@ -48,11 +48,11 @@ function coinChange(amt: number, coins: Array<number>): Array<Array<number>> {
  * @return list of solutions, each a list of coins
  */
 let memo = {}
-function memoKey(amt: number, coins: Array<number>): string {
+function memoKey(amt, coins) {
 	return amt + "-" + coins.join(",");
 }
 
-function coinChangeMemo(amt: number, coins: Array<number>): Array<Array<number>> {
+function coinChangeMemo(amt, coins) {
 	if (amt === 0) return [];
 	if (memo[memoKey(amt, coins)]) return memo[memoKey(amt, coins)];
 
