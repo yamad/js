@@ -13,6 +13,7 @@ export function dealTop(deck) {
 
 /**
  * Shuffle elements of an array using Knuth-Fisher-Yates algorithm
+ * @see Knuth, TAOCP vol 2, pg. 145, Algorithm P
  *
  * @return Array copy of input with shuffled elements
  */
