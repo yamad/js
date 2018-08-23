@@ -1,5 +1,5 @@
-var test = require('tape');
-var makeResizingArray = require('./resizingArray');
+const test = require('tape');
+const makeResizingArray = require('./resizingArray');
 
 test("ResizingArray -- basic initialization", function (t) {
 	let ra = makeResizingArray();
