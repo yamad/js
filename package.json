@@ -4,16 +4,32 @@
   "description": "Small bits of javascript code",
   "main": "cards.js",
   "scripts": {
-	  "test": "echo \"Error: no test specified\" && exit 1",
-	  "build": "babel *.js -d build/",
-	  "prepublish": "npm run build",
-	  "flow": "flow"
+    "test": "ava",
+    "build": "babel *.js -d build/",
+    "prepublish": "npm run build",
+    "flow": "flow"
   },
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "ava": "^0.19.1",
+    "ava-check": "^1.0.0-rc.0",
     "babel-cli": "^6.24.1",
     "babel-preset-flow": "^6.23.0",
-    "flow-bin": "^0.44.0"
+    "eslint": "^4.19.1",
+    "flow-bin": "^0.44.0",
+    "jasmine": "^2.8.0",
+    "jasmine-check": "^1.0.0-rc.0",
+    "javascript-typescript-langserver": "^2.9.4",
+    "jest": "^21.2.1",
+    "jsverify": "^0.8.3",
+    "tape": "^4.8.0",
+    "tape-check": "^1.0.0-rc.0"
+  },
+  "dependencies": {
+    "benchmark": "^2.1.4",
+    "d3": "^5.5.0",
+    "ndarray": "^1.0.18",
+    "ndarray-show": "^2.0.0"
   }
 }
