@@ -61,6 +61,16 @@ function* constant(value) {
 	yield* repeat(value);
 }
 
+// return natural numbers [0,1,2,...]
+function* naturals() {
+	yield* range(0, Infinity);
+}
+
+// attach index to enumerate iterable
+function* enumerate(iterable) {
+	yield* zip(naturals(), iterable);
+}
+
 // return slice of generator from indices start (inclusive) to stop
 // (exclusive). if only two arguments given, the second argument is
 // interpreted as stop.
@@ -77,23 +87,59 @@ function* gslice(iterable, start, stop, step=1) {
 	yield* takeEvery(iterator, step);
 }
 
-// zip n iterables, where 1st element is a list of 1st element of each
-// iterable.
-function* zip(...arrs) {
-	const lengths = arrs.map(a => a.length);
-	if (!lengths) return;
 
-	const minlen = Math.min(...lengths);
-	for (let i = 0; i < minlen; i++)
-		yield arrs.map(a => a[i]);
+// zip n iterables
+function* zip(...iterables) {
+	if (iterables.length === 0) return;
+	const iters = iterables.map(a => a[Symbol.iterator]());
+	while (true) {
+		const nexts = iters.map(a => a.next());
+		const dones = nexts.map(a => a.done);
+		if (dones.some(d => d === true))
+			return;
+		yield nexts.map(a => a.value)
+	}
+}
+
+function* gmap(iterable, func) {
+	const iterator = iterable[Symbol.iterator]();
+	for (const el of iterator)
+		yield func(el)
+}
+
+
+function argcompare(iterable, cmp, start) {
+	let min_index = undefined;
+	let min_value = start;
+	for (const [i, x] of enumerate(iterable)) {
+		if (cmp(x, min_value)) {
+			min_value = x;
+			min_index = i;
+		}
+	}
+	return min_index;
+}
+
+function argmin(iterable) {
+	const min_ = (a, b) => a < b
+	return argcompare(iterable, min_, Infinity)
+}
+
+function argmax(iterable) {
+	const max_ = (a, b) => a > b
+	return argcompare(iterable, max_, -Infinity)
 }
 
 
 module.exports = {
+	argcompare,
 	chain,
 	constant,
 	drop,
+	enumerate,
+	gmap,
 	gslice,
+	naturals,
 	range,
 	repeat,
 	take,

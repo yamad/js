@@ -11,7 +11,8 @@ function min(arr, key = x => x, fallback = undefined) {
 // Return index of minimum value in `iterable`
 function argmin(iterable) {
     let min_index = undefined;
-    let min_value = Infinity;
+	let min_value = Infinity;
+	let iterator = iterable[Symbol.iterator]();
     iterable.forEach(function(x, i) {
         if (x < min_value) {
             min_value = x;
