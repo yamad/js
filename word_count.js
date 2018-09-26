@@ -9,6 +9,19 @@ function mostFrequentWord(text) {
 	return maxWord;
 }
 
+const mostFrequentWord2 = compose(maxKey, frequencies, toWords)
+
+
+function compose(...funcs) {
+	return function(x) {
+		let res = x;
+		for (const func of funcs.reverse())
+			res = func(res)
+		return res
+	}
+}
+
+const compose2 = (...funcs) => (x) => funcs.reverse().reduce((a, f) => f(a), x);
 
 function toWords(string) {
 	const delimiters = /[ ,!.";:-]+/;
