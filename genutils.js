@@ -101,10 +101,22 @@ function* zip(...iterables) {
 	}
 }
 
-function* gmap(iterable, func) {
-	const iterator = iterable[Symbol.iterator]();
-	for (const el of iterator)
-		yield func(el)
+function* gmap(iterable, callback, this_) {
+	const f = callback.bind(this_)
+	switch (callback.length) {
+	case 1:
+		for (const el of iterable)
+			yield f(el)
+		break
+	case 2:
+	case 3:
+		for (const [i, el] of enumerate(iterable))
+			yield f(el, i, iterable)
+		break
+	default:
+		// some sort of error
+		break
+	}
 }
 
 
